@@ -10,7 +10,7 @@
   when: papertrail_service == "rsyslog"
 
 - name: Install rsyslog-gnutls (Debian)
-  apt: name=rsyslog-gnutls state=present
+  apt: name=rsyslog-gnutls state=present update_cache=yes
   when: ansible_os_family == "Debian" and papertrail_service == "rsyslog"
 
 - name: "Download papertrail root certificates"
