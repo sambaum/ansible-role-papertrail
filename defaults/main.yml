@@ -1,10 +1,10 @@
 ---
 #papertrail_destination: "" # shouldn't be here
 papertrail_loglevel: "*.*"
-papertrail_enable_tcp: False
-papertrail_enable_tls: True
-# Set hostname to use instead of machine hostname
-papertrail_hostname: False
+papertrail_enable_tcp: false
+papertrail_enable_tls: true
+# Set hostname to use instead of machine hostname (empty string = use machine hostname)
+papertrail_hostname: ""
 
 # Rsyslog Defaults 
 papertrail_EscapeControlCharactersOnReceive: 'on'
