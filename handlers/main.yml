@@ -1,4 +1,6 @@
 ---
 
 - name: Restart rsyslogd
-  service: name=rsyslog state=restarted
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted

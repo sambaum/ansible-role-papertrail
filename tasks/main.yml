@@ -2,23 +2,38 @@
 # tasks file for papertrail
 
 - name: install rsyslog
-  package:
+  ansible.builtin.package:
     name: rsyslog
 
 - name: Check rsyslogd
-  service: name=rsyslog state=started enabled=yes
+  ansible.builtin.service:
+    name: rsyslog
+    state: started
+    enabled: true
   when: papertrail_service == "rsyslog"
 
 - name: Install rsyslog-gnutls (Debian)
-  apt: name=rsyslog-gnutls state=present update_cache=yes
+  ansible.builtin.apt:
+    name: rsyslog-gnutls
+    state: present
+    update_cache: true
   when: ansible_os_family == "Debian" and papertrail_service == "rsyslog"
 
 - name: "Download papertrail root certificates"
-  get_url: url=https://papertrailapp.com/tools/papertrail-bundle.pem dest=/etc/papertrail-bundle.pem owner=root group=root backup=no
+  ansible.builtin.get_url:
+    url: https://papertrailapp.com/tools/papertrail-bundle.pem
+    dest: /etc/papertrail-bundle.pem
+    owner: root
+    group: root
+    backup: false
   when: papertrail_enable_tls
 
 - name: Configure papertrail rsyslogd config
-  template: src=papertrail.conf.j2 dest=/etc/rsyslog.d/70-papertrail.conf owner=root group=root backup=no
+  ansible.builtin.template:
+    src: papertrail.conf.j2
+    dest: /etc/rsyslog.d/70-papertrail.conf
+    owner: root
+    group: root
+    backup: false
   when: papertrail_service == "rsyslog"
   notify: Restart rsyslogd
-
